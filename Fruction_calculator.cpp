@@ -20,7 +20,7 @@ int findGCF(int num1 , int num2)
 int main ()
 {
     regex rational("-?(([1-9]+[0-9]*)|0)(/[1-9]+[0-9]*)?");
-    int intnum1_prt1 , intnum1_prt2 , intnum2_prt1 , intnum2_prt2 , GCF , result_prt1 , result_prt2;
+    int intnum1_prt1 , intnum1_prt2 , intnum2_prt1 , intnum2_prt2 , GCF , result_prt1 , result_prt2 , whole;
     string num1 , num1_prt1 , num1_prt2 , num2 , num2_ptr1 , num2_prt2;
     char chose;
     bool valid , isminus_frst , isminus_scnd , foundslash = false;
@@ -109,17 +109,33 @@ int main ()
 
     if (chose == '1')
     {
-        result_prt1 = (intnum1_prt1 * intnum2_prt2) + (intnum2_prt1 * intnum1_prt2);
+        result_prt1 = ((intnum1_prt1 * intnum2_prt2) + (intnum2_prt1 * intnum1_prt2));
         result_prt2 = (intnum1_prt2 * intnum2_prt2);
+        whole = result_prt1 / result_prt2;
         GCF = findGCF(result_prt1,result_prt2);
-        cout << result_prt1 / GCF << "/" << result_prt2 / GCF;
+        result_prt1 /= GCF;
+        result_prt2 /= GCF;
+        result_prt1 %= result_prt2;
+        if(whole){cout << whole << " ";}
+        if(result_prt1 != 0)
+        {
+            cout << result_prt1 << "/" << result_prt2;
+        }
     }
     if (chose == '2')
     {
-        result_prt1 = (intnum1_prt1 * intnum2_prt2) - (intnum2_prt1 * intnum1_prt2);
+        result_prt1 = ((intnum1_prt1 * intnum2_prt2) - (intnum2_prt1 * intnum1_prt2));
         result_prt2 = (intnum1_prt2 * intnum2_prt2);
+        whole = result_prt1 / result_prt2;
         GCF = findGCF(result_prt1,result_prt2);
-        cout << result_prt1 / GCF << "/" << result_prt2 / GCF;
+        result_prt1 /= GCF;
+        result_prt2 /= GCF;
+        result_prt1 %= result_prt2;
+        if(whole){cout << whole << " ";}
+        if(result_prt1 != 0)
+        {
+            cout << result_prt1 << "/" << result_prt2;
+        }
     }
     return 0 ;
 }
