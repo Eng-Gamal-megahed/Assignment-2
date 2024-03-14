@@ -5,11 +5,22 @@
 #include <string>
 #include <regex>
 using namespace std;
+int findGCF(int num1 , int num2)
+{
+    int mininum = min(num1 , num2);
+    for(int i = mininum ; i>=1 ; i-- )
+    {
+        if((num1 % i == 0) && (num2 % i == 0))
+        {
+            return i;
+        }
+    }
+}
 
 int main ()
 {
     regex rational("-?(([1-9]+[0-9]*)|0)(/[1-9]+[0-9]*)?");
-    int intnum1_prt1 , intnum1_prt2 , intnum2_prt1 , intnum2_prt2;
+    int intnum1_prt1 , intnum1_prt2 , intnum2_prt1 , intnum2_prt2 , GCF , result_prt1 , result_prt2;
     string num1 , num1_prt1 , num1_prt2 , num2 , num2_ptr1 , num2_prt2;
     char chose;
     bool valid , isminus_frst , isminus_scnd , foundslash = false;
@@ -98,25 +109,17 @@ int main ()
 
     if (chose == '1')
     {
-        if(intnum1_prt2 == intnum2_prt2)
-        {
-            cout << intnum1_prt1 + intnum2_prt1 << "/" << intnum1_prt2;
-        }
-        else
-        {
-            cout << (intnum1_prt1 * intnum2_prt2) + (intnum2_prt1 * intnum1_prt2) << "/" << (intnum1_prt2 * intnum2_prt2);
-        }
+        result_prt1 = (intnum1_prt1 * intnum2_prt2) + (intnum2_prt1 * intnum1_prt2);
+        result_prt2 = (intnum1_prt2 * intnum2_prt2);
+        GCF = findGCF(result_prt1,result_prt2);
+        cout << result_prt1 / GCF << "/" << result_prt2 / GCF;
     }
     if (chose == '2')
     {
-        if(intnum1_prt2 == intnum2_prt2)
-        {
-            cout << intnum1_prt1 - intnum2_prt1 << "/" << intnum1_prt2;
-        }
-        else
-        {
-            cout << (intnum1_prt1 * intnum2_prt2) - (intnum2_prt1 * intnum1_prt2) << "/" << (intnum1_prt2 * intnum2_prt2);
-        }
+        result_prt1 = (intnum1_prt1 * intnum2_prt2) - (intnum2_prt1 * intnum1_prt2);
+        result_prt2 = (intnum1_prt2 * intnum2_prt2);
+        GCF = findGCF(result_prt1,result_prt2);
+        cout << result_prt1 / GCF << "/" << result_prt2 / GCF;
     }
     return 0 ;
 }
