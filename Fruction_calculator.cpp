@@ -91,18 +91,32 @@ int main ()
         }
     }
     intnum2_prt1 = stoi(num2_ptr1);
-    (isminus_frst)? intnum2_prt1*=-1 : intnum2_prt2*=1 ;
+    (isminus_scnd)? intnum2_prt1*=-1 : intnum2_prt1*=1 ;
 
     cout << "1)Addition\n2)Subtraction\n";
     cin >> chose;
 
     if (chose == '1')
     {
-        cout << (intnum1_prt1 * intnum2_prt2) + (intnum2_prt1 * intnum1_prt2) << "/" << (intnum1_prt2 * intnum2_prt2);
+        if(intnum1_prt2 == intnum2_prt2)
+        {
+            cout << intnum1_prt1 + intnum2_prt1 << "/" << intnum1_prt2;
+        }
+        else
+        {
+            cout << (intnum1_prt1 * intnum2_prt2) + (intnum2_prt1 * intnum1_prt2) << "/" << (intnum1_prt2 * intnum2_prt2);
+        }
     }
     if (chose == '2')
     {
-        cout << (intnum1_prt1 * intnum2_prt2) - (intnum2_prt1 * intnum1_prt2) << "/" << (intnum1_prt2 * intnum2_prt2);
+        if(intnum1_prt2 == intnum2_prt2)
+        {
+            cout << intnum1_prt1 - intnum2_prt1 << "/" << intnum1_prt2;
+        }
+        else
+        {
+            cout << (intnum1_prt1 * intnum2_prt2) - (intnum2_prt1 * intnum1_prt2) << "/" << (intnum1_prt2 * intnum2_prt2);
+        }
     }
     return 0 ;
 }
