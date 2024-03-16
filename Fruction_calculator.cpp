@@ -16,31 +16,50 @@ int findGCF(int num1 , int num2)
             return i;
         }
     }
+    return 1;
 }
 
 int main ()
-{while (true){
-        regex rational("-?(([1-9]+\\.?[0-9]*)|0)(/[1-9]+\\.?[0-9]*)?");
+{
+    while (true)
+{
+        regex rational("(-?(([1-9]+[0-9]*)|0)(/[1-9]+[0-9]*)?)(( (\\+|-|\\*) -?(((([1-9]+[0-9]*)|0)(/[1-9]+[0-9]*)?))|(( / -?)(([1-9]+[0-9]*))(/[1-9]+[0-9]*)?)))");
         int intnum1_prt1 , intnum1_prt2 , intnum2_prt1 , intnum2_prt2 , GCF , result_prt1 , result_prt2 , whole;
-        string num1 , num1_prt1 , num1_prt2 , num2 , num2_ptr1 , num2_prt2;
-        char chose;
-        bool valid , isminus_frst , isminus_scnd , foundslash = false;
-        cout << "Enter the first number :";
-        cin >> num1;
-        valid = regex_match(num1 , rational);
+        string expression , num1 , num1_prt1 , num1_prt2 , num2 , num2_ptr1 , num2_prt2;
+        char operation;
+        bool valid , isminus_frst = false , isminus_scnd = false , foundslash = false , foundoperator = false;
+        cout << "put space before and after the operator\n";
+        cout << "Enter the expression :";
+        getline(cin , expression);
+
+
+    valid = regex_match(expression , rational);
         while(!valid){
-            cout << "Invalid number please follow the instructions\nEnter the first number :";
-            cin >> num1;
-            valid = regex_match(num1 , rational);
+            cout << "Invalid number please follow the instructions\nEnter the expression :";
+            getline(cin , expression);
+            valid = regex_match(expression , rational);
         }
-        cout << "Enter the second number :";
-        cin >> num2;
-        valid = regex_match(num2 , rational);
-        while(!valid){
-            cout << "Invalid number please follow the instructions\nEnter the second number :";
-            cin >> num2;
-            valid = regex_match(num2 , rational);
+        for (int i = 0 ; i < expression.size() ; i ++)
+        {
+
+            if(i != 0)
+            {
+                if((expression[i] == '+' || expression[i] == '*' || expression[i] == '-'  || expression[i] == '/') && (expression[i-1] == ' ' && expression[i+1] == ' '))            {
+                    operation = expression[i];
+                    foundoperator= true;
+                }
+            }
+            if(!foundoperator && expression[i] != ' ')
+            {
+                num1 += expression[i];
+            }
+
+            else if(foundoperator && expression[i] != ' ')
+            {
+                num2 += expression[i];
+            }
         }
+        num2.erase(0,1);
         if(num1[0] == '-')
         {
             isminus_frst = true;
@@ -105,10 +124,8 @@ int main ()
         intnum2_prt1 = stoi(num2_ptr1);
         (isminus_scnd)? intnum2_prt1*=-1 : intnum2_prt1*=1 ;
 
-        cout << "Chose an operation\n1)Addition\n2)Subtraction\n3)Multiplication\n4)Division\nEnter choice: ";
-        cin >> chose;
 
-        if (chose == '1')
+        if (operation == '+')
         {
             result_prt1 = ((intnum1_prt1 * intnum2_prt2) + (intnum2_prt1 * intnum1_prt2));
             result_prt2 = (intnum1_prt2 * intnum2_prt2);
@@ -117,14 +134,16 @@ int main ()
             result_prt1 /= GCF;
             result_prt2 /= GCF;
             result_prt1 %= result_prt2;
-            if(whole){cout << whole << " "<<endl;}
+            if(whole){cout << whole << " " ;}
             if(result_prt1 != 0)
             {
                 cout << result_prt1 << "/" << result_prt2<<endl;
             }
+            else
+                cout << 0 << endl;
 
         }
-        else if (chose == '2')
+        else if (operation == '-')
         {
             result_prt1 = ((intnum1_prt1 * intnum2_prt2) - (intnum2_prt1 * intnum1_prt2));
             result_prt2 = (intnum1_prt2 * intnum2_prt2);
@@ -133,13 +152,15 @@ int main ()
             result_prt1 /= GCF;
             result_prt2 /= GCF;
             result_prt1 %= result_prt2;
-            if(whole){cout << whole << " "<<endl;}
+            if(whole){cout << whole << " " ;}
             if(result_prt1 != 0)
             {
                 cout << result_prt1 << "/" << result_prt2<<endl;
             }
+            else
+                cout << 0 << endl;
         }
-        else if (chose=='3'){
+        else if (operation == '*'){
             result_prt1=(intnum1_prt1 * intnum2_prt1);
             result_prt2=(intnum1_prt2 * intnum2_prt2);
             whole = result_prt1 / result_prt2;
@@ -147,12 +168,12 @@ int main ()
             result_prt1 /= GCF;
             result_prt2 /= GCF;
             result_prt1 %= result_prt2;
-            if (whole){ cout << whole << " " << endl;}
+            if (whole){ cout << whole << " " ;}
             else if (result_prt1 != 0){
                 cout<< result_prt1 << "/" << result_prt2 << endl;
             }
         }
-        else if (chose=='4'){
+        else if (operation == '/'){
             result_prt1=(intnum1_prt1 * intnum2_prt2);
             result_prt2=(intnum1_prt2 * intnum2_prt1);
             whole = result_prt1 / result_prt2;
@@ -160,7 +181,7 @@ int main ()
             result_prt1 /= GCF;
             result_prt2 /= GCF;
             result_prt1 %= result_prt2;
-            if (whole){cout << whole << " " <<endl;}
+            if (whole){cout << whole << " " ;}
             else if (result_prt1 != 0){
                 cout<< result_prt1 << "/" << result_prt2 << endl;
             }
@@ -172,12 +193,14 @@ int main ()
             cout<<"Invalid input! PLease, Follow the instructions."<<endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout<<"1) Another operation\n2) Exit\n ";
+            cout<<"\n1) Another operation\n2) Exit\n ";
             cin>>choose;
         }
         if (choose==2){
             break;
         }
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(),'\n');
     }
     return 0 ;
 }
