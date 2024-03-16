@@ -112,7 +112,7 @@ int main ()
         result_prt1 = ((intnum1_prt1 * intnum2_prt2) + (intnum2_prt1 * intnum1_prt2));
         result_prt2 = (intnum1_prt2 * intnum2_prt2);
         whole = result_prt1 / result_prt2;
-        GCF = findGCF(result_prt1,result_prt2);
+        GCF = findGCF(abs(result_prt1),abs(result_prt2));
         result_prt1 /= GCF;
         result_prt2 /= GCF;
         result_prt1 %= result_prt2;
@@ -127,7 +127,7 @@ int main ()
         result_prt1 = ((intnum1_prt1 * intnum2_prt2) - (intnum2_prt1 * intnum1_prt2));
         result_prt2 = (intnum1_prt2 * intnum2_prt2);
         whole = result_prt1 / result_prt2;
-        GCF = findGCF(result_prt1,result_prt2);
+        GCF = findGCF(abs(result_prt1),abs(result_prt2));
         result_prt1 /= GCF;
         result_prt2 /= GCF;
         result_prt1 %= result_prt2;
