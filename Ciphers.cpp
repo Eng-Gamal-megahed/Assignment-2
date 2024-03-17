@@ -551,14 +551,12 @@ int Affine_Cipher()
 string Decrypt_Vignere(string key, string message)
 {
     string decrypted_message;
-    int key_index = 0;
     for (int i = 0; i < message.size(); i++)
     {
         if (isalpha(message[i]))
         {
-            int value = ((message[i] - key[key_index]) + 26) % 26;
+            int value = ((message[i] - key[i]) + 26) % 26;
             decrypted_message += (value + 'A');
-            key_index = (key_index + 1) % key.size();
         }
         else
         {
@@ -570,15 +568,13 @@ string Decrypt_Vignere(string key, string message)
 
 string Encrypt_Vignere(string key, string message)
 {
-    int key_index = 0;
     string cyphered_message;
     for (int i = 0; i < message.size(); i++)
     {
         if (isalpha(message[i]))
         {
-            int value = ((message[i] + key[key_index]) - 2 * 'A') % 26;
+            int value = ((message[i] + key[i]) - 2 * 'A') % 26;
             cyphered_message += (value + 'A');
-            key_index = (key_index + 1) % key.size();
         }
         else
         {
