@@ -5,27 +5,22 @@
 #include <map>
 #include <string>
 #include <limits>
-#include <algorithm>
-#include <vector>
 using namespace std;
-string SYSTEM_COLOR = "";
-string RESET_COLOR = "";
+string SYSTEM_COLOR;
+string RESET_COLOR = "\033[0m";
 string BOLD = "\033[1;37m";
 string RED = "\033[1;31m";
 string BLUE = "\033[1;34m";
 string YELLOW = "\033[1;33m";
 string WHITE = "\033[1;37m";
-string BLACK = "\033[1;30m";
 string GREEN = "\033[1;32m";
 string CYAN = "\033[1;36m";
 string PURPLE = "\033[1;35m";
-string BG_BLACK = "\033[40m";
-string BG_WHITE = "\033[47m";
 
 // A map to help convert text to morse code.
 map<char, string> Dic = {
     {'a', ".-"}, {'b', "-..."}, {'c', "-.-."}, {'d', "-.."}, {'e', "."}, {'f', "..-."}, {'g', "--."}, {'h', "...."}, {'i', ".."}, {'j', ".---"}, {'k', "-.-"}, {'l', ".-.."}, {'m', "--"}, {'n', "-."}, {'o', "---"}, {'p', ".--."}, {'q', "--.-"}, {'r', ".-."}, {'s', "..."}, {'t', "-"}, {'u', "..-"}, {'v', "...-"}, {'w', ".--"}, {'x', "-..-"}, {'y', "-.--"}, {'z', "--.."}, {'0', "-----"}, {'1', ".----"}, {'2', "..---"}, {'3', "...--"}, {'4', "....-"}, {'5', "....."}, {'6', "-...."}, {'7', "--..."}, {'8', "---.."}, {'9', "----."}, {'+', ".-.-."}, {'=', "-...-"}, {'/', "-..-."}, {'.', ".-.-.-"}, {',', "--..--"}, {'?', "..--.."}, {' ', " "}};
-int get_int(string message = "")
+int get_int(const string& message = "")
 {
     int num = 0;
     cout << SYSTEM_COLOR << message << RESET_COLOR;
@@ -68,8 +63,7 @@ string color()
         player_color = GREEN;
     else if (color == 5)
         player_color = CYAN;
-    else if (color == 6)
-        player_color = PURPLE;
+    else player_color = PURPLE;
     return player_color;
 }
 void cont();
