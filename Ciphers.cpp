@@ -5,6 +5,8 @@
 #include <map>
 #include <string>
 #include <limits>
+#include <bitset>
+
 using namespace std;
 string SYSTEM_COLOR;
 string RESET_COLOR = "\033[0m";
@@ -681,7 +683,81 @@ void Vignere()
         }
     }
 }
+string Decrypt_Baconian(string message) {
+    string decrypted_message;
 
+    for (char &c : message) {
+        if (c == 'a') {
+            c = '0';
+        } else if (c == 'b') {
+            c = '1';
+        }
+    }
+    for (int i = 0; i < message.size() - 4; i += 5) {
+        while(message[i] == ' '){
+            decrypted_message += ' ';
+            i++;
+        }
+        int value = stoi(message.substr(i, 5), nullptr, 2);
+        decrypted_message += char(value + 'A');
+    }
+    return decrypted_message;
+}
+
+
+string Encrypt_Baconian(string message) {
+    string cyphered_message;
+    for (char c : message)
+    {
+        bitset<5> binaryNumber(c-1);
+        cyphered_message += binaryNumber.to_string();
+    }
+    for (char &c : cyphered_message )
+    {
+        if(c == '0')
+        {
+            c = 'a';
+        }
+        else if(c == '1')
+        {
+            c = 'b';
+        }
+    }
+    return cyphered_message;
+}
+
+void Baconian() {
+    int choice;
+    string message, output_message, key;
+    cout << SYSTEM_COLOR << "***Welcome to Baconian Cipher ***\nWhat do you want to do?\n" << RESET_COLOR;
+    while (true) {
+        cout << SYSTEM_COLOR << "(1) Encrypt a message\n"
+             << "(2) Decrypt a message\n"
+             << "(3) Exit\n" << RESET_COLOR;
+        choice = get_int("Enter your choice:");
+        while (choice != 1 && choice != 2 && choice != 3) {
+            cout << RED << "Invalid choice! Please, follow the instructions\n"
+                 << RESET_COLOR;
+            cout << SYSTEM_COLOR << "What do you want to do?\n"
+                 << "(1) Encrypt a message\n"
+                 << "(2) Decrypt a message\n"
+                 << "(3) Exit\n" << RESET_COLOR;
+            choice = get_int("Enter your choice:");
+        }
+
+        if (choice == 1) {
+            message = get_string("enter the message:");
+            output_message = Encrypt_Baconian(message);
+            cout << SYSTEM_COLOR << "The encrypted message :" << output_message << "\n" << RESET_COLOR;
+        } else if (choice == 2) {
+            message = get_string("enter the message:");
+            output_message = Decrypt_Baconian(message);
+            cout << SYSTEM_COLOR << "The decrypted message :" << output_message << "\n" << RESET_COLOR;
+        } else if (choice == 3) {
+            break;
+        }
+    }
+}
 int main()
 {
     int choice;
@@ -691,14 +767,14 @@ int main()
     cout << "\n============\n";
     while (true)
     {
-        cout << SYSTEM_COLOR << "Which cipher do you want ?\n1) Rail Cipher\n2) Morse Code\n3) Affine cipher \n4) Vignere Cipher\n5) Exit\n"
+        cout << SYSTEM_COLOR << "1) Rail Cipher\n2) Morse Code\n3)Affine Cipher \n4) Vignere Cipher\n5)Baconian Cipher\n6) Exit\n"
              << RESET_COLOR;
         choice = get_int("Enter your choice: ");
         while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
         {
             cout << RED << "Invalid input! PLease, Follow the instructions.\n"
                  << RESET_COLOR;
-            cout << SYSTEM_COLOR << "1) Rail Cipher\n2) Morse Code\n3)Affine Cipher \n4) Vignere Cipher\n5) Exit\n"
+            cout << SYSTEM_COLOR << "1) Rail Cipher\n2) Morse Code\n3)Affine Cipher \n4) Vignere Cipher\n5)Baconian Cipher\n6) Exit\n"
                  << RESET_COLOR;
             choice = get_int("Enter your choice: ");
         }
@@ -720,6 +796,10 @@ int main()
             Vignere();
         }
         else if (choice == 5)
+        {
+            Baconian();
+        }
+        else if (choice == 6)
         {
             cout << SYSTEM_COLOR << "Thanks for using the program! 🥰" << RESET_COLOR;
             break;
