@@ -3,24 +3,20 @@
 #include <limits>
 using namespace std;
 
+string SYSTEM_COLOR = "";
+string RESET_COLOR = "";
 string BOLD = "\033[1;37m";
 string RED = "\033[1;31m";
-string RESET_COLOR = "\033[0m";
+string BLUE = "\033[1;34m";
+string YELLOW = "\033[1;33m";
+string WHITE = "\033[1;37m";
+string BLACK = "\033[1;30m";
+string GREEN = "\033[1;32m";
+string CYAN = "\033[1;36m";
+string PURPLE = "\033[1;35m";
+string BG_BLACK = "\033[40m";
+string BG_WHITE = "\033[47m";
 
-string get_string(string message = "")
-{
-    string word;
-    cout << BOLD << message << RESET_COLOR;
-    getline(cin, word);
-    while (cin.fail())
-    {
-        cout << RED << "Invalid Input! Please, follow the instructions\n"
-             << RESET_COLOR;
-        cin.clear();
-        getline(cin, word);
-    }
-    return word;
-}
 int get_int(string message = "")
 {
     int num = 0;
@@ -39,6 +35,52 @@ int get_int(string message = "")
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     return num;
 }
+
+string color()
+{
+    int color;
+    string player_color;
+    cout << BOLD << "Chose system color \n(1) Blue\n(2) Yellow\n(3) White\n(4) Green\n(5) Cyan\n(6) Purple\n"
+         << RESET_COLOR;
+    color = get_int();
+    while (color != 1 && color !=2 && color != 3 && color != 4 && color != 5 && color != 6 )
+    {
+        cout << RED << "Invalid color. Please choose again\n"
+             << RESET_COLOR;
+        cout << BOLD << "What is your favorite color?\n(1) Blue\n(2) Yellow\n(3) White\n(4) Green\n(5) Cyan\n(6) Purple\n"
+             << RESET_COLOR;
+        color = get_int();
+    }
+    if (color == 1)
+        player_color = BLUE;
+    else if (color == 2)
+        player_color = YELLOW;
+    else if (color == 3)
+        player_color = WHITE;
+    else if (color == 4)
+        player_color = GREEN;
+    else if (color == 5)
+        player_color = CYAN;
+    else if (color == 6)
+        player_color = PURPLE;
+    return player_color;
+}
+
+string get_string(string message = "")
+{
+    string word;
+    cout << BOLD << message << RESET_COLOR;
+    getline(cin, word);
+    while (cin.fail())
+    {
+        cout << RED << "Invalid Input! Please, follow the instructions\n"
+             << RESET_COLOR;
+        cin.clear();
+        getline(cin, word);
+    }
+    return word;
+}
+
 
 string removeSpaces(string input)
 {

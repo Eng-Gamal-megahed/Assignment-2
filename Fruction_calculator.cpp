@@ -23,7 +23,7 @@ int main ()
 {
     while (true)
 {
-        regex rational("(-?(([1-9]+[0-9]*)|0)(/[1-9]+[0-9]*)?)(( (\\+|-|\\*) -?(((([1-9]+[0-9]*)|0)(/[1-9]+[0-9]*)?))|(( / -?)(([1-9]+[0-9]*))(/[1-9]+[0-9]*)?)))");
+        regex rational("([-+]?(([0-9]+)|0)(\\/[-+]?[1-9]+[0-9]*)?)(( (\\+|-|\\*) [-+]?(((([0-9]+)|0)(\\/[-+]?[0-9]+)?))|(( \\/ -?)(([1-9]+[0-9]*))(\\/[-+]?[1-9]+[0-9]*)?)))");
         int intnum1_prt1 , intnum1_prt2 , intnum2_prt1 , intnum2_prt2 , GCF , result_prt1 , result_prt2 , whole;
         string expression , num1 , num1_prt1 , num1_prt2 , num2 , num2_ptr1 , num2_prt2;
         char operation;
