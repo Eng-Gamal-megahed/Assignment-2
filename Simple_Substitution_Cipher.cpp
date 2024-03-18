@@ -4,10 +4,14 @@
 //
 // Created by Gamal on 3/17/2024.
 //
+//
+// Created by Gamal on 3/17/2024.
+//
 #include <iostream>
 #include <string>
 #include <limits>
 #include <bitset>
+#include <algorithm>
 using namespace std;
 
 string SYSTEM_COLOR = "\033[0m";
@@ -24,20 +28,6 @@ string PURPLE = "\033[1;35m";
 string BG_BLACK = "\033[40m";
 string BG_WHITE = "\033[47m";
 
-string get_string(string message = "")
-{
-    string word;
-    cout << BOLD << message << RESET_COLOR;
-    getline(cin, word);
-    while (cin.fail())
-    {
-        cout << RED << "Invalid Input! Please, follow the instructions\n"
-             << RESET_COLOR;
-        cin.clear();
-        getline(cin, word);
-    }
-    return word;
-}
 int get_int(string message = "")
 {
     int num = 0;
@@ -98,53 +88,93 @@ string removeSpaces(string input)
     }
     return result;
 }
-string Decrypt_Baconian(string message) {
+string get_string(string message = "")
+{
+    string word;
+    cout << SYSTEM_COLOR << message << RESET_COLOR;
+    getline(cin, word);
+    while (cin.fail())
+    {
+        cout << RED << "Invalid Input! Please, follow the instructions\n"
+             << RESET_COLOR;
+        cin.clear();
+        getline(cin, word);
+    }
+    return word;
+}
+int get_index(char x, char array[], int size) {
+    for (int i = 0; i < size; ++i) {
+        if (array[i] == x)
+            return i;
+    }
+    return -1;
+}
+
+string Decrypt_Simple_Substitution(string message , string key , char alphabets[]) {
     string decrypted_message;
 
-    for (char &c : message) {
-        if (c == 'a') {
-            c = '0';
-        } else if (c == 'b') {
-            c = '1';
+    char alphabets_key[26];
+    int index = key.size();
+    for (int i = 0; i < key.size(); ++i) {
+        alphabets_key[i] = key[i];
+    }
+    for (int i = 0; i < 26; ++i) {
+        if(find(alphabets_key , alphabets_key + key.size() , alphabets[i]) == alphabets_key + key.size())
+        {
+            alphabets_key[index] = alphabets[i];
+            index++;
         }
     }
-    for (int i = 0; i < message.size() - 4; i += 5) {
-        while(message[i] == ' '){
-            decrypted_message += ' ';
-            i++;
+    for(char c : message)
+    {
+        if(c == ' ')
+        {
+            decrypted_message += c;
+            continue;
         }
-        int value = stoi(message.substr(i, 5), nullptr, 2);
-        decrypted_message += char(value + 'A');
+        decrypted_message += alphabets[get_index(c , alphabets_key , 26)];
     }
     return decrypted_message;
 }
 
-
-string Encrypt_Baconian(string message) {
+string Encrypt_Simple_Substitution(string message , string key , char alphabets[]) {
     string cyphered_message;
-    for (char c : message)
-    {
-        bitset<5> binaryNumber(c-1);
-        cyphered_message += binaryNumber.to_string();
+    char alphabets_key[26];
+    int index = key.size();
+    for (int i = 0; i < key.size(); ++i) {
+        alphabets_key[i] = key[i];
     }
-    for (char &c : cyphered_message )
+    for (int i = 0; i < 26; ++i) {
+        if(find(alphabets_key , alphabets_key + key.size() , alphabets[i]) == alphabets_key + key.size())
+        {
+            alphabets_key[index] = alphabets[i];
+            index++;
+        }
+    }
+    for(char c : message)
     {
-        if(c == '0')
+        if(c == ' ')
         {
-            c = 'a';
+            cyphered_message += c;
+            continue;
         }
-        else if(c == '1')
-        {
-            c = 'b';
-        }
+        cyphered_message += alphabets_key[get_index(c , alphabets , 26)];
     }
     return cyphered_message;
 }
 
-void Baconian() {
+
+void Simple_Substitution() {
     int choice;
     string message, output_message, key;
-    cout << SYSTEM_COLOR << "***Welcome to Baconian Cipher ***\nWhat do you want to do?\n" << RESET_COLOR;
+    char alphabets[26];
+
+    for (int i = 0; i < 26; ++i) {
+        alphabets[i] = 'a' + i;
+    }
+
+
+    cout << SYSTEM_COLOR << "***Welcome to Simple Substitution Cipher ***\nWhat do you want to do?\n" << RESET_COLOR;
     while (true) {
         cout << SYSTEM_COLOR << "(1) Encrypt a message\n"
              << "(2) Decrypt a message\n"
@@ -162,12 +192,30 @@ void Baconian() {
 
         if (choice == 1) {
             message = get_string("enter the message:");
-            output_message = Encrypt_Baconian(message);
-            cout << SYSTEM_COLOR << "The encrypted message :" << output_message << "\n" << RESET_COLOR;
+            for (char &c : message )
+            {
+                c = tolower(c);
+            }
+            key = get_string("enter the key:");
+            for (char &c : key )
+            {
+                c = tolower(c);
+            }
+            output_message = Encrypt_Simple_Substitution(message , key , alphabets);
+            cout << "The encrypted message :" << output_message << "\n";
         } else if (choice == 2) {
             message = get_string("enter the message:");
-            output_message = Decrypt_Baconian(message);
-            cout << SYSTEM_COLOR << "The decrypted message :" << output_message << "\n" << RESET_COLOR;
+            for (char &c : message )
+            {
+                c = tolower(c);
+            }
+            key = get_string("enter the key:");
+            for (char &c : key )
+            {
+                c = tolower(c);
+            }
+            output_message = Decrypt_Simple_Substitution(message , key , alphabets);
+            cout << "The decrypted message :" << output_message << "\n";
         } else if (choice == 3) {
             break;
         }
@@ -175,5 +223,10 @@ void Baconian() {
 }
 int main()
 {
-Baconian();
+    char alphabets[26];
+
+    for (int i = 0; i < 26; ++i) {
+        alphabets[i] = 'a' + i;
+    }
+    Simple_Substitution();
 }

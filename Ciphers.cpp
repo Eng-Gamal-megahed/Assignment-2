@@ -6,6 +6,7 @@
 #include <string>
 #include <limits>
 #include <bitset>
+#include <algorithm>
 
 using namespace std;
 string SYSTEM_COLOR;
@@ -21,8 +22,8 @@ string PURPLE = "\033[1;35m";
 
 // A map to help convert text to morse code.
 map<char, string> Dic = {
-    {'a', ".-"}, {'b', "-..."}, {'c', "-.-."}, {'d', "-.."}, {'e', "."}, {'f', "..-."}, {'g', "--."}, {'h', "...."}, {'i', ".."}, {'j', ".---"}, {'k', "-.-"}, {'l', ".-.."}, {'m', "--"}, {'n', "-."}, {'o', "---"}, {'p', ".--."}, {'q', "--.-"}, {'r', ".-."}, {'s', "..."}, {'t', "-"}, {'u', "..-"}, {'v', "...-"}, {'w', ".--"}, {'x', "-..-"}, {'y', "-.--"}, {'z', "--.."}, {'0', "-----"}, {'1', ".----"}, {'2', "..---"}, {'3', "...--"}, {'4', "....-"}, {'5', "....."}, {'6', "-...."}, {'7', "--..."}, {'8', "---.."}, {'9', "----."}, {'+', ".-.-."}, {'=', "-...-"}, {'/', "-..-."}, {'.', ".-.-.-"}, {',', "--..--"}, {'?', "..--.."}, {' ', " "}};
-int get_int(const string& message = "")
+        {'a', ".-"}, {'b', "-..."}, {'c', "-.-."}, {'d', "-.."}, {'e', "."}, {'f', "..-."}, {'g', "--."}, {'h', "...."}, {'i', ".."}, {'j', ".---"}, {'k', "-.-"}, {'l', ".-.."}, {'m', "--"}, {'n', "-."}, {'o', "---"}, {'p', ".--."}, {'q', "--.-"}, {'r', ".-."}, {'s', "..."}, {'t', "-"}, {'u', "..-"}, {'v', "...-"}, {'w', ".--"}, {'x', "-..-"}, {'y', "-.--"}, {'z', "--.."}, {'0', "-----"}, {'1', ".----"}, {'2', "..---"}, {'3', "...--"}, {'4', "....-"}, {'5', "....."}, {'6', "-...."}, {'7', "--..."}, {'8', "---.."}, {'9', "----."}, {'+', ".-.-."}, {'=', "-...-"}, {'/', "-..-."}, {'.', ".-.-.-"}, {',', "--..--"}, {'?', "..--.."}, {' ', " "}};
+int get_int(const string &message = "")
 {
     int num = 0;
     cout << SYSTEM_COLOR << message << RESET_COLOR;
@@ -65,7 +66,8 @@ string color()
         player_color = GREEN;
     else if (color == 5)
         player_color = CYAN;
-    else player_color = PURPLE;
+    else
+        player_color = PURPLE;
     return player_color;
 }
 void cont();
@@ -73,7 +75,7 @@ int encode();
 int decode();
 // A map to help convert morse code to text.
 map<string, char> reversed_Dic = {
-    {".-", 'a'}, {"-...", 'b'}, {"-.-.", 'c'}, {"-..", 'd'}, {".", 'e'}, {"..-.", 'f'}, {"--.", 'g'}, {"....", 'h'}, {"..", 'i'}, {".---", 'j'}, {"-.-", 'k'}, {".-..", 'l'}, {"--", 'm'}, {"-.", 'n'}, {"---", 'o'}, {".--.", 'p'}, {"--.-", 'q'}, {".-.", 'r'}, {"...", 's'}, {"-", 't'}, {"..-", 'u'}, {"...-", 'v'}, {".--", 'w'}, {"-..-", 'x'}, {"-.--", 'y'}, {"--..", 'z'}, {"-----", '0'}, {" ", ' '}, {".----", '1'}, {"..---", '2'}, {"...--", '3'}, {"....-", '4'}, {".....", '5'}, {"-....", '6'}, {"--...", '7'}, {"---..", '8'}, {"----.", '9'}, {".-.-.", '+'}, {"-...-", '='}, {"-..-.", '/'}, {".-.-.-", '.'}, {"--..--", ','}, {"..--..", '?'}};
+        {".-", 'a'}, {"-...", 'b'}, {"-.-.", 'c'}, {"-..", 'd'}, {".", 'e'}, {"..-.", 'f'}, {"--.", 'g'}, {"....", 'h'}, {"..", 'i'}, {".---", 'j'}, {"-.-", 'k'}, {".-..", 'l'}, {"--", 'm'}, {"-.", 'n'}, {"---", 'o'}, {".--.", 'p'}, {"--.-", 'q'}, {".-.", 'r'}, {"...", 's'}, {"-", 't'}, {"..-", 'u'}, {"...-", 'v'}, {".--", 'w'}, {"-..-", 'x'}, {"-.--", 'y'}, {"--..", 'z'}, {"-----", '0'}, {" ", ' '}, {".----", '1'}, {"..---", '2'}, {"...--", '3'}, {"....-", '4'}, {".....", '5'}, {"-....", '6'}, {"--...", '7'}, {"---..", '8'}, {"----.", '9'}, {".-.-.", '+'}, {"-...-", '='}, {"-..-.", '/'}, {".-.-.-", '.'}, {"--..--", ','}, {"..--..", '?'}};
 int Morse_Code()
 { // main
     string choice;
@@ -177,7 +179,7 @@ int decode()
                 x = "";
             }
         }
-        // if the input is't a Morse Code.
+            // if the input is't a Morse Code.
         else if ((i != '-') && (i != '.'))
         {
             cout << SYSTEM_COLOR << "The statement is not a Morse Code.\nPlease choose a correct operation." << RESET_COLOR << endl;
@@ -550,57 +552,50 @@ int Affine_Cipher()
     return 0;
 }
 
-string Decrypt_Vignere(string key, string message)
-{
+// This function decrypts a message using Vigenere cipher
+string Decrypt_Vignere(string key, string message) {
     string decrypted_message;
-    for (int i = 0; i < message.size(); i++)
-    {
-        if (isalpha(message[i]))
-        {
+    for (int i = 0; i < message.size(); i++) {
+        if (isalpha(message[i])) {
+            // Calculate the value for decryption
             int value = ((message[i] - key[i]) + 26) % 26;
             decrypted_message += (value + 'A');
-        }
-        else
-        {
-            decrypted_message += message[i];
+        } else {
+            decrypted_message += message[i]; // Preserve non-alphabetic characters
         }
     }
     return decrypted_message;
 }
 
-string Encrypt_Vignere(string key, string message)
-{
+// This function encrypts a message using Vigenere cipher
+string Encrypt_Vignere(string key, string message) {
     string cyphered_message;
-    for (int i = 0; i < message.size(); i++)
-    {
-        if (isalpha(message[i]))
-        {
+    for (int i = 0; i < message.size(); i++) {
+        if (isalpha(message[i])) {
+            // Calculate the value for encryption
             int value = ((message[i] + key[i]) - 2 * 'A') % 26;
             cyphered_message += (value + 'A');
-        }
-        else
-        {
-            cyphered_message += message[i];
+        } else {
+            cyphered_message += message[i]; // Preserve non-alphabetic characters
         }
     }
     return cyphered_message;
 }
 
-void Vignere()
-{
+// This function provides a menu-driven interface for using Vigenere cipher
+void Vignere() {
     int choice;
     string message, output_message, key;
     cout << SYSTEM_COLOR << "***Welcome to Vigenere Cipher ***\nWhat do you want to do?\n"
          << RESET_COLOR;
-    while (true)
-    {
+    while (true) {
+        // Display menu options and process user input
         cout << SYSTEM_COLOR << "(1) Encrypt a message\n"
              << "(2) Decrypt a message\n"
              << "(3) Exit\n"
              << RESET_COLOR;
         choice = get_int("Enter your choice:");
-        while (choice != 1 && choice != 2 && choice != 3)
-        {
+        while (choice != 1 && choice != 2 && choice != 3) {
             cout << RED << "Invalid choice! Please, follow the instructions\n"
                  << RESET_COLOR;
             cout << SYSTEM_COLOR << "What do you want to do?\n"
@@ -611,81 +606,78 @@ void Vignere()
             choice = get_int("Enter your choice:");
         }
 
-        if (choice == 1)
-        {
+        if (choice == 1) {
+            // Get message and key for encryption
             message = get_string("enter the message:");
             cout << RED << "Note that key must have only alphabet letters any other characters will be removed\n"
                  << RESET_COLOR;
             key = get_string("enter the key:");
-            key = remove_spaces_chars(key);
-            while (key == "")
-            {
+            key = remove_spaces_chars(key); // Remove spaces and non-alphabetic characters from the key
+            while (key == "") {
                 cout << RED << "Invalid key, please follow the instructions\n"
                      << RESET_COLOR;
                 key = get_string("enter the key:");
                 key = remove_spaces_chars(key);
             }
-            for (char &c : message)
-            {
+            // Convert message and key to uppercase
+            for (char &c : message) {
                 c = toupper(c);
             }
-            for (char &c : key)
-            {
+            for (char &c : key) {
                 c = toupper(c);
             }
-            for (int i = 0; i < message.size(); i += key.size())
-            {
-                if (message.size() > key.size())
-                {
+            // Ensure key is repeated to match the length of the message
+            for (int i = 0; i < message.size(); i += key.size()) {
+                if (message.size() > key.size()) {
                     key += key;
                 }
             }
+            // Encrypt the message and display the result
             output_message = Encrypt_Vignere(key, message);
             cout << SYSTEM_COLOR << "The encrypted message : " << output_message << "\n"
                  << RESET_COLOR;
-        }
-        else if (choice == 2)
-        {
+        } else if (choice == 2) {
+            // Get message and key for decryption
             message = get_string("enter the message:");
             cout << RED << "Note that key must have only alphabet letters any other characters will be removed\n"
                  << RESET_COLOR;
             key = get_string("enter the key:");
-            key = remove_spaces_chars(key);
-            while (key == "")
-            {
+            key = remove_spaces_chars(key); // Remove spaces and non-alphabetic characters from the key
+            while (key == "") {
                 cout << RED << "Invalid key, please follow the instructions\n"
                      << RESET_COLOR;
                 key = get_string("enter the key:");
                 key = remove_spaces_chars(key);
             }
-            for (char &c : message)
-            {
+            // Convert message and key to uppercase
+            for (char &c : message) {
                 c = toupper(c);
             }
-            for (char &c : key)
-            {
+            for (char &c : key) {
                 c = toupper(c);
             }
-            for (int i = 0; i < message.size(); i += key.size())
-            {
-                if (message.size() > key.size())
-                {
+            // Ensure key is repeated to match the length of the message
+            for (int i = 0; i < message.size(); i += key.size()) {
+                if (message.size() > key.size()) {
                     key += key;
                 }
             }
+            // Decrypt the message and display the result
             output_message = Decrypt_Vignere(key, message);
             cout << SYSTEM_COLOR << "The decrypted message : " << output_message << "\n"
                  << RESET_COLOR;
-        }
-        else if (choice == 3)
-        {
-            break;
+        } else if (choice == 3) {
+            break; // Exit the program
         }
     }
 }
+
+
+// This function decrypts a message encrypted using Baconian cipher
 string Decrypt_Baconian(string message) {
     string decrypted_message;
 
+    // Convert 'a' to '0' and 'b' to '1' for binary conversion
     for (char &c : message) {
         if (c == 'a') {
             c = '0';
@@ -693,25 +685,31 @@ string Decrypt_Baconian(string message) {
             c = '1';
         }
     }
+
+    // Extract 5-bit binary chunks and convert them back to characters
     for (int i = 0; i < message.size() - 4; i += 5) {
+        // Handle spaces if present
         while(message[i] == ' '){
             decrypted_message += ' ';
             i++;
         }
+        // Convert binary to integer and then to corresponding character
         int value = stoi(message.substr(i, 5), nullptr, 2);
         decrypted_message += char(value + 'A');
     }
     return decrypted_message;
 }
 
-
+// This function encrypts a message using Baconian cipher
 string Encrypt_Baconian(string message) {
     string cyphered_message;
+    // Convert characters to 5-bit binary representation
     for (char c : message)
     {
-        bitset<5> binaryNumber(c-1);
-        cyphered_message += binaryNumber.to_string();
+        bitset<5> binaryNumber(c-1); // Convert character to 5-bit binary
+        cyphered_message += binaryNumber.to_string(); // Append binary representation to cyphered_message
     }
+    // Replace '0' with 'a' and '1' with 'b'
     for (char &c : cyphered_message )
     {
         if(c == '0')
@@ -726,15 +724,18 @@ string Encrypt_Baconian(string message) {
     return cyphered_message;
 }
 
+// This function provides a menu-driven interface for using Baconian cipher
 void Baconian() {
     int choice;
     string message, output_message, key;
     cout << SYSTEM_COLOR << "***Welcome to Baconian Cipher ***\nWhat do you want to do?\n" << RESET_COLOR;
     while (true) {
+        // Menu options
         cout << SYSTEM_COLOR << "(1) Encrypt a message\n"
              << "(2) Decrypt a message\n"
              << "(3) Exit\n" << RESET_COLOR;
         choice = get_int("Enter your choice:");
+        // Validate choice
         while (choice != 1 && choice != 2 && choice != 3) {
             cout << RED << "Invalid choice! Please, follow the instructions\n"
                  << RESET_COLOR;
@@ -746,18 +747,151 @@ void Baconian() {
         }
 
         if (choice == 1) {
+            // Get message from user and encrypt it
             message = get_string("enter the message:");
             output_message = Encrypt_Baconian(message);
             cout << SYSTEM_COLOR << "The encrypted message :" << output_message << "\n" << RESET_COLOR;
         } else if (choice == 2) {
+            // Get message from user and decrypt it
             message = get_string("enter the message:");
             output_message = Decrypt_Baconian(message);
             cout << SYSTEM_COLOR << "The decrypted message :" << output_message << "\n" << RESET_COLOR;
         } else if (choice == 3) {
+            // Exit the program
             break;
         }
     }
 }
+
+
+// This function finds the index of a character in an array
+int get_index(char x, char array[], int size) {
+    for (int i = 0; i < size; ++i) {
+        if (array[i] == x)
+            return i;
+    }
+    return -1; // If character not found, return -1
+}
+
+// This function decrypts a message using Simple Substitution cipher
+string Decrypt_Simple_Substitution(string message, string key, char alphabets[]) {
+    string decrypted_message;
+
+    // Create a key for the substitution cipher
+    char alphabets_key[26];
+    int index = key.size();
+    for (int i = 0; i < key.size(); ++i) {
+        alphabets_key[i] = key[i];
+    }
+    // Populate remaining alphabets not present in the key
+    for (int i = 0; i < 26; ++i) {
+        if (find(alphabets_key, alphabets_key + key.size(), alphabets[i]) == alphabets_key + key.size()) {
+            alphabets_key[index] = alphabets[i];
+            index++;
+        }
+    }
+    // Decrypt each character in the message
+    for (char c : message) {
+        if (c == ' ') {
+            decrypted_message += c;
+            continue;
+        }
+        decrypted_message += alphabets[get_index(c, alphabets_key, 26)];
+    }
+    return decrypted_message;
+}
+
+// This function encrypts a message using Simple Substitution cipher
+string Encrypt_Simple_Substitution(string message, string key, char alphabets[]) {
+    string cyphered_message;
+    // Create a key for the substitution cipher
+    char alphabets_key[26];
+    int index = key.size();
+    for (int i = 0; i < key.size(); ++i) {
+        alphabets_key[i] = key[i];
+    }
+    // Populate remaining alphabets not present in the key
+    for (int i = 0; i < 26; ++i) {
+        if (find(alphabets_key, alphabets_key + key.size(), alphabets[i]) == alphabets_key + key.size()) {
+            alphabets_key[index] = alphabets[i];
+            index++;
+        }
+    }
+    // Encrypt each character in the message
+    for (char c : message) {
+        if (c == ' ') {
+            cyphered_message += c;
+            continue;
+        }
+        cyphered_message += alphabets_key[get_index(c, alphabets, 26)];
+    }
+    return cyphered_message;
+}
+
+// This function provides a menu-driven interface for using Simple Substitution cipher
+void Simple_Substitution() {
+    int choice;
+    string message, output_message, key;
+    char alphabets[26];
+
+    // Initialize the array of alphabets
+    for (int i = 0; i < 26; ++i) {
+        alphabets[i] = 'a' + i;
+    }
+
+    // Display menu and process user input
+    cout << SYSTEM_COLOR << "***Welcome to Simple Substitution Cipher ***\nWhat do you want to do?\n"
+         << RESET_COLOR;
+    while (true) {
+        cout << SYSTEM_COLOR << "(1) Encrypt a message\n"
+             << "(2) Decrypt a message\n"
+             << "(3) Exit\n"
+             << RESET_COLOR;
+        choice = get_int("Enter your choice:");
+        while (choice != 1 && choice != 2 && choice != 3) {
+            cout << RED << "Invalid choice! Please, follow the instructions\n"
+                 << RESET_COLOR;
+            cout << SYSTEM_COLOR << "What do you want to do?\n"
+                 << "(1) Encrypt a message\n"
+                 << "(2) Decrypt a message\n"
+                 << "(3) Exit\n"
+                 << RESET_COLOR;
+            choice = get_int("Enter your choice:");
+        }
+
+        if (choice == 1) {
+            // Get user input for encryption
+            message = get_string("enter the message:");
+            for (char &c : message) {
+                c = tolower(c);
+            }
+            key = get_string("enter the key:");
+            for (char &c : key) {
+                c = tolower(c);
+            }
+            // Encrypt the message and display the result
+            output_message = Encrypt_Simple_Substitution(message, key, alphabets);
+            cout << "The encrypted message :" << output_message << "\n";
+        } else if (choice == 2) {
+            // Get user input for decryption
+            message = get_string("enter the message:");
+            for (char &c : message) {
+                c = tolower(c);
+            }
+            key = get_string("enter the key:");
+            for (char &c : key) {
+                c = tolower(c);
+            }
+            // Decrypt the message and display the result
+            output_message = Decrypt_Simple_Substitution(message, key, alphabets);
+            cout << "The decrypted message :" << output_message << "\n";
+        } else if (choice == 3) {
+            // Exit the program
+            break;
+        }
+    }
+}
+
 int main()
 {
     int choice;
@@ -767,14 +901,14 @@ int main()
     cout << "\n============\n";
     while (true)
     {
-        cout << SYSTEM_COLOR << "1) Rail Cipher\n2) Morse Code\n3)Affine Cipher \n4) Vignere Cipher\n5)Baconian Cipher\n6) Exit\n"
+        cout << SYSTEM_COLOR << "Which cipher do you want?\n1) Rail-fence Cipher\n2) Morse Code\n3) Affine Cipher \n4) Vignere Cipher\n5) Baconian Cipher\n6) Simple Substitution\n7) Exit\n"
              << RESET_COLOR;
         choice = get_int("Enter your choice: ");
-        while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5)
+        while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7)
         {
             cout << RED << "Invalid input! PLease, Follow the instructions.\n"
                  << RESET_COLOR;
-            cout << SYSTEM_COLOR << "1) Rail Cipher\n2) Morse Code\n3)Affine Cipher \n4) Vignere Cipher\n5)Baconian Cipher\n6) Exit\n"
+            cout << SYSTEM_COLOR << "1) Rail Cipher\n2) Morse Code\n3) Affine Cipher \n4) Vignere Cipher\n5) Baconian Cipher\n6) Simple Substitution\n7) Exit\n"
                  << RESET_COLOR;
             choice = get_int("Enter your choice: ");
         }
@@ -800,6 +934,10 @@ int main()
             Baconian();
         }
         else if (choice == 6)
+        {
+            Simple_Substitution();
+        }
+        else if (choice == 7)
         {
             cout << SYSTEM_COLOR << "Thanks for using the program! 🥰" << RESET_COLOR;
             break;
