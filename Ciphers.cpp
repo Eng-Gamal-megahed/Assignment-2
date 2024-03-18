@@ -9,6 +9,220 @@
 #include <algorithm>
 
 using namespace std;
+void route_cipher(){
+    cout<<"Welcome to my cipher (Route cipher)"<<endl;
+    while(true){
+        // Input the message
+
+        int chose;
+        cout<<"1) Encrypt the message.\n2) Decrypt the message.\n3) Exit: ";
+        cin>>chose;
+        while (cin.fail() || (chose != 1 && chose != 2 && chose != 3)){
+            cout<<"Invalid input! PLease, Follow the instructions."<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout<<"1) Encrypt the message.\n2) Decrypt the message.\n3) Exit: ";
+            cin>>chose;
+        }
+        if(chose==1){
+            cout << "Please, Enter your message: ";
+            cin.ignore();
+            string orgi_message;
+            getline(cin, orgi_message);
+            string orgi_message2 = "";
+            for (char ch: orgi_message){
+                if (isalpha(ch)){
+                    orgi_message2+=toupper(ch);
+                }
+            }
+            // Handle the errors
+            cout << "Enter your key number (The number has to be greater than zero): ";
+            // Input the key
+            int key;
+            cin >> key;
+            while(cin.fail() || key <= 0){
+                cout<<"Invalid input! Please, Follow the instructions."<<endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                cout << "Enter your key number again (The number has to be greater than zero): ";
+                cin>>key;
+            }
+            int rrows;
+            if (orgi_message.size() % key == 0) {
+                rrows = orgi_message2.size() / key;
+            } else {
+                rrows = orgi_message2.size() / key + 1;
+            }
+            // Create the board
+            const int rows = rrows;
+            const int columns = key;
+            char board[rows][columns];
+
+            int ch_index = 0;
+            for (int i = 0; i < rows; i++) {
+                for (int ii = 0; ii < columns; ii++) {
+                    if (ch_index < orgi_message2.size()) {
+                        board[i][ii] = orgi_message2[ch_index];
+                        ch_index++;
+                    } else {
+                        board[i][ii] = 'X'; // Fill remaining space with spaces
+                    }
+                }
+            }
+            //===============================================================
+            string result = ""; //* we have spaces
+            int top = key -1 ;
+            int bottom = rrows - 1 , left = 0 , right = 0;
+            while (left <= bottom && right <= top){
+                for (int i = left ; i <= bottom ; i++){
+                    result+=board[i][top];
+                }
+                top-=1;
+                for (int ii = top ; ii >= right ; ii--){
+                    result+=board[bottom][ii];
+                }
+                bottom-=1;
+                for (int iii = bottom ; iii >= right ; iii--){
+                    result+=board[iii][left];
+                }
+                right+=1;
+                for (int iiii = right  ; iiii <= top ; iiii++){
+                    result+=board[left][iiii];
+                }
+                left+=1;
+            }
+            cout<<result<<endl;
+            cin.ignore();
+        }
+            // decrypt the message
+        else if(chose==2){
+            cout << "Please, Enter your message: ";
+            cin.ignore();
+            string orgi_message;
+            getline(cin, orgi_message);
+            string orgi_message2 = "";
+            for (char ch: orgi_message){
+                if (isalpha(ch)){
+                    orgi_message2+=toupper(ch);
+                }
+            }
+            // Handle the errors
+            cout << "Enter your key number (The number has to be greater than zero): ";
+            // Input the key
+            int key;
+            cin >> key;
+            while(cin.fail() || key <= 0){
+                cout<<"Invalid input! Please, Follow the instructions."<<endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(),'\n');
+                cout << "Enter your key number again (The number has to be greater than zero): ";
+                cin>>key;
+            }
+            int rrows;
+            if (orgi_message.size() % key == 0) {
+                rrows = orgi_message2.size() / key;
+            } else {
+                rrows = orgi_message2.size() / key + 1;
+            }
+            // Create the board
+            const int rows = rrows;
+            const int columns = key;
+            char board[rows][columns];
+
+            int ch_index = 0;
+            for (int i = 0; i < rows; i++) {
+                for (int ii = 0; ii < columns; ii++) {
+                    if (ch_index < orgi_message2.size()) {
+                        board[i][ii] = orgi_message2[ch_index];
+                        ch_index++;
+                    } else {
+                        board[i][ii] = 'X'; // Fill remaining space with spaces
+                    }
+                }
+            }
+// ========================================================
+            int top = key -1 ;
+            int bottom = rrows - 1 , left = 0 , right = 0 , k=0;
+            while(left<=bottom && right<= top){
+                for (int i = left ; i <= bottom ; i++){
+                    board[i][top]=orgi_message2[k];
+                    k+=1;
+                }
+                top-=1;
+                for (int ii = top ; ii >= right ; ii--){
+                    board[bottom][ii]=orgi_message2[k];
+                    k+=1;
+                }
+                bottom-=1;
+                for (int iii = bottom ; iii >= right ; iii--){
+                    board[iii][left]=orgi_message2[k];
+                    k+=1;
+                }
+                right+=1;
+                for (int iiii = right  ; iiii <= top ; iiii++){
+                    board[left][iiii]=orgi_message2[k];
+                    k+=1;
+                }
+                left+=1;
+            }
+            string result2="";
+            for (int i = 0 ; i < rrows ; i++){
+                for (int ii = 0 ; ii < key ; ii++){
+                    if (board[i][ii]!='X')
+                        result2+=board[i][ii];
+                }
+            }
+            cout<<result2<<endl;
+            cin.ignore();
+        }
+        else break;
+    }
+}
+
+//==============================================
+void atbash_cipher(){
+    while (true){
+// encryption or decryption
+        int chose;
+        cout<<"1) Encrypt your message.\n2) Decrypt your message.\n3) Exit: ";
+        cin>>chose;
+// handling the errors
+        while (cin.fail() || (chose !=1 && chose !=2 && chose != 3)){
+            cout<<"Invalid input! Please, Follow the instructions."<<endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(),'\n');
+            cout<<"1) Encrypt your message.\n2) Decrypt your message.\n3) Exit: ";
+            cin>>chose;
+        }
+        if ( chose == 1 || chose == 2){
+// use the postion of the alhabet to spicify the index.
+            string upp_alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//Enter the message.
+            cout<<"Enter your message: ";
+            string orgi_message;
+            cin.ignore();
+            getline(cin,orgi_message);
+// make it uppercase
+            for (char &ch : orgi_message){
+                ch = toupper(ch);
+            }
+            string encrypt_result="";
+// start the encryption and the decryption and remeber they are the same.
+            for (char ch : orgi_message){
+                for (int i = 0 ; i < 26 ; i++){
+                    if (upp_alpha[i]==ch){
+                        // 25 - index
+                        encrypt_result+=upp_alpha[25-i];
+                        break;
+                    }
+                }
+            }
+            cout<<encrypt_result<<endl;}
+        else break;}
+}
+
+
+//==============================
 string SYSTEM_COLOR;
 string RESET_COLOR = "\033[0m";
 string BOLD = "\033[1;37m";
@@ -153,7 +367,7 @@ int decode()
 {
     string decrypt_stat;
     string decrypted_stat = "";
-    cout << SYSTEM_COLOR << "Please enter your statement you want to decrypt:" << RESET_COLOR;
+    cout << SYSTEM_COLOR << "Please enter your statement you want to decrypt: " << RESET_COLOR;
     getline(cin, decrypt_stat);
     string x = "";
     int counter = 0;
@@ -901,43 +1115,52 @@ int main()
     cout << "\n============\n";
     while (true)
     {
-        cout << SYSTEM_COLOR << "Which cipher do you want?\n1) Rail-fence Cipher\n2) Morse Code\n3) Affine Cipher \n4) Vignere Cipher\n5) Baconian Cipher\n6) Simple Substitution\n7) Exit\n"
+        cout << SYSTEM_COLOR << "Which cipher do you want?\n0) Affine Cipher.\n1)Route Cipher.\n2)Atbash Cipher.\n3) Vignere Cipher.\n4) Baconian Cipher.\n5)Simple Substitution.\n6)Polybius Square Cipher.\n7) Morse Code.\n8) XOR Cipher.\n9) Rail-fence Cipher.\n10) Exit\n"
              << RESET_COLOR;
         choice = get_int("Enter your choice: ");
-        while (choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7)
+        while (choice != 0 && choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7  && choice != 8  && choice != 9  && choice != 10)
         {
             cout << RED << "Invalid input! PLease, Follow the instructions.\n"
                  << RESET_COLOR;
-            cout << SYSTEM_COLOR << "1) Rail Cipher\n2) Morse Code\n3) Affine Cipher \n4) Vignere Cipher\n5) Baconian Cipher\n6) Simple Substitution\n7) Exit\n"
+            cout << SYSTEM_COLOR << "Which cipher do you want?\n0) Affine Cipher.\n1)Route Cipher.\n2)Atbash Cipher.\n3) Vignere Cipher.\n4) Baconian Cipher.\n5)Simple Substitution.\n6)Polybius Square Cipher.\n7) Morse Code.\n8) XOR Cipher.\n9) Rail-fence Cipher.\n10) Exit\n"
                  << RESET_COLOR;
             choice = get_int("Enter your choice: ");
         }
 
-        if (choice == 1)
+        if (choice == 0)
+        {Affine_Cipher();
+        }
+        else if (choice == 1)
         {
-            Rail_fence_code();
+            route_cipher();
         }
         else if (choice == 2)
         {
-            Morse_Code();
+            atbash_cipher();
         }
         else if (choice == 3)
         {
-            Affine_Cipher();
+            Vignere();
         }
         else if (choice == 4)
         {
-            Vignere();
+            Baconian();
         }
         else if (choice == 5)
         {
-            Baconian();
-        }
-        else if (choice == 6)
-        {
             Simple_Substitution();
+        }else if (choice == 6){
+            continue;
         }
-        else if (choice == 7)
+        else if (choice == 7){
+            Morse_Code();
+        }
+        else if (choice == 8){
+            continue;
+        }
+        else if (choice == 9)
+            Rail_fence_code();
+        else if (choice == 10)
         {
             cout << SYSTEM_COLOR << "Thanks for using the program! 🥰" << RESET_COLOR;
             break;
