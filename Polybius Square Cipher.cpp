@@ -1,6 +1,5 @@
 
 #include <iostream>
-#include <limits>
 using namespace std;
 // 2D array of alphabetic letters.
 char table [5][5] = {{'A','B','C','D','E'},
@@ -51,7 +50,7 @@ int main(){
         }else if (choice == "c" or choice == "C"){
             exit(0);
         }
-        else { cout << "Please, enter a valid input: " << endl; }
+        else { cout << "Please, enter a valid input." ; }
     }
 }
 
