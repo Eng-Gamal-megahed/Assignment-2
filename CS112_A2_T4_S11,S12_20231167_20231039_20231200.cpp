@@ -1374,9 +1374,9 @@ int decode_9(){
         }else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."<< RESET_COLOR; }
     }
     cout <<SYSTEM_COLOR<< "Please, enter the key of the encryption:"<< RESET_COLOR;
-    cin >> key;
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin >> key;
     // XOR operation on every bit in every character in the message.
     for (char letter : decrypt_mes){
         decrypted_mes += letter ^ key;
