@@ -1,8 +1,8 @@
 // File: CS112_A2_T4_S11,S12_20231167_20231039_20231200.cpp
 // Purpose: a program that have a variety of encryption and decryption ways to be more secured when talking to someone.
-// Author: Mostafa Ehab Mostafa Akl (20231167) (mostafaehabakl@gmail.com) , Section 12 , Did Morse Code Translator.
-//         Gamal Megahed Sayed Mohamed (20231039) (eng.gamalmegahed@gmail.com), Section 12 , Did Rail Fence Code.
-//         Walid Adel Mordy Rohyem (20231200) (khattabadel112005@gmail.com), Section 11 , Did Program Affine cipher.
+// Author: Mostafa Ehab Mostafa Akl (20231167) (mostafaehabakl@gmail.com) , Section 12 , Did 6)Polybius Square Cipher , 7)Morse Code Cipher, 8)XOR Cipher.
+//         Gamal Megahed Sayed Mohamed (20231039) (eng.gamalmegahed@gmail.com), Section 12 , Did 3)Vignere Cipher , 4)Baconian Cipher ,5)Simple Substitution Cipher , 9)Rail Fence Code.
+//         Walid Adel Mordy Rohyem (20231200) (khattabadel112005@gmail.com), Section 11 , Did 0) Affine cipher , 1)Route Cipher , 2)Atbash Cipher.
 
 #include <iostream>
 #include <map>
