@@ -1,6 +1,8 @@
-//
-// Created by Gamal on 3/14/2024.
-//
+// File: CS112_A2_T3_S11,S12_20231167_20231039_20231200.cpp
+// Purpose: A program that do a variety of mathmatical operations.
+// Author: Mostafa Ehab Mostafa Akl (20231167) (mostafaehabakl@gmail.com) , Section 12 .
+//         Gamal Megahed Sayed Mohamed (20231039) (eng.gamalmegahed@gmail.com), Section 12 .
+//         Walid Adel Mordy Rohyem (20231200) (khattabadel112005@gmail.com), Section 11 .
 #include <iostream>
 #include <string>
 #include <regex>
