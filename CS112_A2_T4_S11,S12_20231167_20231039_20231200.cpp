@@ -1165,6 +1165,7 @@ int Polybius_Square (){
         }
         else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."  << RESET_COLOR;}
     }
+    return 0;        
 }
 
 int encode_6(){
@@ -1294,6 +1295,7 @@ int XOR(){
         }
         else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."<< RESET_COLOR; }
     }
+    return 0; 
 }
 int encode_9 (){
     string encrypt_mes,encrypted_mes,hex_mes;
@@ -1356,7 +1358,7 @@ int main()
     cout << "\n============\n";
     while (true)
     {
-        cout << SYSTEM_COLOR << "Which cipher do you want?\n0) Affine Cipher.\n1)Route Cipher.\n2)Atbash Cipher.\n3) Vignere Cipher.\n4) Baconian Cipher.\n5)Simple Substitution.\n6)Polybius Square Cipher.\n7) Morse Code.\n8) XOR Cipher.\n9) Rail-fence Cipher.\n10) Exit\n"
+        cout << SYSTEM_COLOR << "Which cipher do you want?\n0) Affine Cipher.\n1) Route Cipher.\n2) Atbash Cipher.\n3) Vignere Cipher.\n4) Baconian Cipher.\n5) Simple Substitution.\n6) Polybius Square Cipher.\n7) Morse Code.\n8) XOR Cipher.\n9) Rail-fence Cipher.\n10) Exit\n"
              << RESET_COLOR;
         choice = get_int("Enter your choice: ");
         while (choice != 0 && choice != 1 && choice != 2 && choice != 3 && choice != 4 && choice != 5 && choice != 6 && choice != 7  && choice != 8  && choice != 9  && choice != 10)
