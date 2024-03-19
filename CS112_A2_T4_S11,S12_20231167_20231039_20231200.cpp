@@ -1111,6 +1111,246 @@ void Simple_Substitution() {
     }
 }
 
+#include <iostream>
+using namespace std;
+// 2D array of alphabetic letters.
+char table [5][5] = {{'A','B','C','D','E'},
+                     {'F','G','H','I','K'},
+                     {'L','M','N','O','P'},
+                     {'Q','R','S','T','U'},
+                     {'V','W','X','Y','Z'}};
+// prototypes.
+int encode_6();
+int decode_6();
+// function to make sure if the input is integers only.
+bool checker_num(string num, int range ) {
+        // not in range if the key especially is not 5 digits.
+        if (range != num.size() ){
+            return false;
+        }
+        // if there are unwanted wrong characters.
+        for (int i = 0; i <= num.size()-1; i++) {
+            if (!isdigit(num[i])) {
+                return false;
+            }
+        }
+        return true;
+}
+// function to make sure if the input is alphabetic letters only.
+bool alpha_checker(string message){
+    // if there are unwanted wrong characters.
+    for (char character : message){
+        if (!isalpha(character) && character != ' ' ){
+            return false;
+        }
+    }
+    return true;
+}
+
+int Polybius_Square (){
+    string choice;
+    // Welcoming statement.
+    cout <<SYSTEM_COLOR<< "Welcome to \"Polybius Square Cipher\" \n" << RESET_COLOR;
+    while (true) {
+        // Take from the user the operation that s/he wants.
+        cout <<SYSTEM_COLOR<< "\nWhich operation do you want to do : \nA) Encrypt \nB) Decrypt\nC) Exit\n" << RESET_COLOR;
+        getline(cin, choice);
+        if (choice == "a" or choice == "A") {
+            encode_6();
+        } else if (choice == "b" or choice == "B") {
+            decode_6();
+        }else if (choice == "c" or choice == "C"){
+            exit(0);
+        }
+        else { cout <<SYSTEM_COLOR<< "Please, enter a valid input." ; << RESET_COLOR}
+    }
+}
+
+int encode_6(){
+    string encrypt_mes,key,encrypted_mes;
+
+    cout <<SYSTEM_COLOR<< "Please enter the message you want to encrypt:"<< RESET_COLOR;
+    getline(cin, (encrypt_mes));
+
+    // asks the user again if s/he entered an invalid input.
+    while (!alpha_checker(encrypt_mes)) {
+        cout  <<SYSTEM_COLOR<< "invalid input the message should contain alphabetic characters only.\n"<< RESET_COLOR;
+        cout  <<SYSTEM_COLOR<< "Please enter the message you want to encrypt:"<< RESET_COLOR;
+        getline(cin, encrypt_mes);
+    }
+
+    cout <<SYSTEM_COLOR<< "Please, enter the key of the encryption:"<< RESET_COLOR;
+    getline(cin,key);
+
+    // asks the user again if s/he entered an invalid input.
+    while (!checker_num(key,5)) {
+        cout  <<SYSTEM_COLOR<<"Please, enter a valid input,\nthe key should contain integers only with range of 5:"<< RESET_COLOR;
+        getline(cin, key);
+    }
+    // compare the letters in the message with the key.
+    for (char letter : encrypt_mes){
+        // j and i in the same position.
+        if (toupper(letter) == 'J' ){
+            letter = 'I';
+        }
+        // using nested loops to convert and know the wanted indexes.
+        for (int i = 0 ; i <= 4 ;i++ ){
+            for (int j = 0 ; j <= 4 ;j++ ){
+
+                 if ( toupper(letter) == table[i][j] ){
+                    encrypted_mes += key[i];
+                    encrypted_mes += key[j];
+
+                }
+
+            }
+
+        }
+
+    }
+    cout <<SYSTEM_COLOR<< "The encrypted message is:\n" << encrypted_mes<< RESET_COLOR;
+    return 0;
+}
+
+int decode_6(){
+    string decrypt_mes,key,decrypted_mes;
+    int first_pos,second_pos  ;
+    cout<<SYSTEM_COLOR << "Please enter your message you want to decrypt:"<< RESET_COLOR;
+    getline(cin, (decrypt_mes));
+
+    // asks the user again if s/he entered an invalid input.
+    while (!checker_num(decrypt_mes,decrypt_mes.size())) {
+        cout <<SYSTEM_COLOR<< "Please, enter a valid input,\nthe encrypted message should contain integers only:"<< RESET_COLOR;
+        getline(cin, decrypt_mes);
+    }
+
+    cout <<SYSTEM_COLOR<< "Please, enter the key of the decryption:"<< RESET_COLOR;
+    getline(cin,key);
+
+    // asks the user again if s/he entered an invalid input.
+    while (!checker_num(key,5)) {
+        cout<<SYSTEM_COLOR << "Please, enter a valid input,\nthe key should contain integers only with range of 5:"<< RESET_COLOR;
+        getline(cin, key);
+    }
+    // using the numbers of the key to know the index to use after equaling with the encrypted message.
+    for (int index = 0; index <= decrypt_mes.size()-1;index+=2){
+        for (int i = 0; i <= key.size()-1;i++){
+            if (decrypt_mes[index] == key[i]){
+                first_pos = i;
+            }
+            if (decrypt_mes[index+1] == key[i]){
+                second_pos = i;
+            }
+        }
+        decrypted_mes += table[first_pos][second_pos];
+    }
+    cout  <<SYSTEM_COLOR<< "The decrypted message is:\n" << decrypted_mes<< RESET_COLOR;
+    return 0;
+}
+//=========================================================================================
+
+#include <iomanip> // for setw and setfill
+#include <sstream> // for stringstream
+#include <iostream>
+using namespace std;
+
+string charToHex(char character) {
+    stringstream stream;
+    stream << hex << setw(2) << setfill('0') << static_cast<int>(character);
+    return stream.str();
+}
+
+// string to ASCII format string
+string hexTochar(string hex){
+    // initialize the character string as empty.
+    string decrypted_mes_char = "";
+    for (int i = 0; i < hex.length(); i += 2)
+    {
+        // extract two characters from hex string
+        string part = hex.substr(i, 2);
+
+        // change it into base 16 and typecast as the character
+        char convert = char(stoul(part, nullptr, 16));
+
+        // add this char to final string of characters.
+        decrypted_mes_char += convert;
+    }
+    return decrypted_mes_char;
+}
+// prototypes
+int decode_9();
+int encode_9();
+
+int XOR(){
+    string choice;
+    // Welcoming statement.
+    cout <<SYSTEM_COLOR<< "Welcome to \"XOR Cipher\" \n" << RESET_COLOR;
+    while (true) {
+        // Take from the user the operation that s/he wants.
+        cout <<SYSTEM_COLOR<< "\nWhich operation do you want to do : \nA) Encrypt \nB) Decrypt\nC) Exit\n"<< RESET_COLOR ;
+        cin >> choice;
+        if (choice == "a" or choice == "A") {
+            encode_9();
+        } else if (choice == "b" or choice == "B") {
+            decode_9();
+        }else if (choice == "c" or choice == "C"){
+            exit(0);
+        }
+        else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."<< RESET_COLOR; }
+    }
+}
+int encode_9 (){
+    string encrypt_mes,encrypted_mes,hex_mes;
+    char key;
+    cout <<SYSTEM_COLOR<< "Please enter the message you want to encrypt:"<< RESET_COLOR;
+    cin.ignore();
+    getline(cin, (encrypt_mes));
+    cout <<SYSTEM_COLOR<< "Please, enter the key of the encryption:"<< RESET_COLOR;
+    cin >> key;
+    // XOR operation on every bit in every character in the message.
+    for (char letter : encrypt_mes){
+        encrypted_mes += letter ^ key;
+    }
+    cout <<SYSTEM_COLOR<<"\nThe encrypted message with characters is:\n" << encrypted_mes << RESET_COLOR<< endl;
+    // to convert the encrypted message to hexadecimal.
+    for (char character : encrypted_mes){
+        hex_mes += charToHex(character);
+    }
+    cout <<SYSTEM_COLOR<< "The encrypted message with hexadecimal value is:\n" << hex_mes << RESET_COLOR<< endl;
+    return 0;
+}
+
+int decode_9(){
+    string choice,decrypt_mes,decrypted_mes,hex_mes;
+    char key;
+    while (true) {
+        // Take from the user the kind of value that s/he wants.
+        cout <<SYSTEM_COLOR<< "\nWhat kind of message you want to decrypt : \nA) Characters \nB) Hexadecimal\n"<< RESET_COLOR ;
+        cin >> choice;
+        if (choice == "a" or choice == "A") {
+            cout <<SYSTEM_COLOR<< "Please enter the message you want to decrypt:"<< RESET_COLOR;
+            cin.ignore();
+            getline(cin, (decrypt_mes));
+            break;
+        } else if (choice == "b" or choice == "B") {
+            cout <<SYSTEM_COLOR<< "Please enter the message you want to decrypt:"<< RESET_COLOR;
+            cin.ignore();
+            getline(cin, (hex_mes));
+            // covert the hexadecimal value to characters.
+            decrypt_mes = hexTochar(hex_mes);
+            break;
+        }else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."<< RESET_COLOR; }
+    }
+    cout <<SYSTEM_COLOR<< "Please, enter the key of the encryption:"<< RESET_COLOR;
+    cin >> key;
+    // XOR operation on every bit in every character in the message.
+    for (char letter : decrypt_mes){
+        decrypted_mes += letter ^ key;
+    }
+    cout <<SYSTEM_COLOR<< "\nThe encrypted message with characters is:" << decrypted_mes << RESET_COLOR<< endl;
+    return 0;
+}
+//==========================================================================================
 int main()
 {
     int choice;
@@ -1155,13 +1395,13 @@ int main()
         {
             Simple_Substitution();
         }else if (choice == 6){
-            continue;
+            Polybius_Square();
         }
         else if (choice == 7){
             Morse_Code();
         }
         else if (choice == 8){
-            continue;
+            XOR();
         }
         else if (choice == 9)
             Rail_fence_code();
