@@ -90,8 +90,6 @@ int main()
         string expression, num1, num1_prt1, num1_prt2, num2, num2_ptr1, num2_prt2;
         char operation;
         bool valid, isminus_frst = false, isminus_scnd = false, foundslash = false, foundoperator = false;
-        cout << BOLD << "🤩🥰❤ Ahllan Ya User Ya Habyby ❤🥰🤩\n";
-        SYSTEM_COLOR = color();
         cout << SYSTEM_COLOR << "put space before and after the operator\n";
         cout << "Enter the expression :" << RESET_COLOR;
         getline(cin, expression);
@@ -125,16 +123,7 @@ int main()
             }
         }
         num2.erase(0, 1);
-        if (num1[0] == '-')
-        {
-            isminus_frst = true;
-            num1.erase(0, 1);
-        }
-        if (num2[0] == '-')
-        {
-            isminus_scnd = true;
-            num2.erase(0, 1);
-        }
+
         for (char c : num1)
         {
             if (c != '/' && !foundslash)
@@ -191,7 +180,7 @@ int main()
             }
         }
         intnum1_prt1 = stoi(num1_prt1);
-        (isminus_frst) ? intnum1_prt1 *= -1 : intnum1_prt2 *= 1;
+        //(isminus_frst) ? intnum1_prt1 *= -1 : intnum1_prt2 *= 1;
         foundslash = false;
         for (char c : num2)
         {
@@ -206,7 +195,7 @@ int main()
             }
         }
         intnum2_prt1 = stoi(num2_ptr1);
-        (isminus_scnd) ? intnum2_prt1 *= -1 : intnum2_prt1 *= 1;
+        //(isminus_scnd) ? intnum2_prt1 *= -1 : intnum2_prt1 *= 1;
 
         if (operation == '+')
         {

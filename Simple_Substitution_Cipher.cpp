@@ -1,12 +1,4 @@
-//
-// Created by Gamal on 3/17/2024.
-//
-//
-// Created by Gamal on 3/17/2024.
-//
-//
-// Created by Gamal on 3/17/2024.
-//
+
 #include <iostream>
 #include <string>
 #include <limits>
