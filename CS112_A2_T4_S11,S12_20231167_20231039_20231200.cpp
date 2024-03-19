@@ -1110,9 +1110,7 @@ void Simple_Substitution() {
         }
     }
 }
-
-#include <iostream>
-using namespace std;
+//===============================================================================================================
 // 2D array of alphabetic letters.
 char table [5][5] = {{'A','B','C','D','E'},
                      {'F','G','H','I','K'},
@@ -1162,7 +1160,7 @@ int Polybius_Square (){
         }else if (choice == "c" or choice == "C"){
             exit(0);
         }
-        else { cout <<SYSTEM_COLOR<< "Please, enter a valid input." ; << RESET_COLOR}
+        else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."  << RESET_COLOR;}
     }
 }
 
@@ -1248,11 +1246,6 @@ int decode_6(){
     return 0;
 }
 //=========================================================================================
-
-#include <iomanip> // for setw and setfill
-#include <sstream> // for stringstream
-#include <iostream>
-using namespace std;
 
 string charToHex(char character) {
     stringstream stream;
