@@ -10,7 +10,7 @@
 #include <limits>
 #include <bitset>
 #include <algorithm>
-
+#include <sstream>
 using namespace std;
 string SYSTEM_COLOR;
 string RESET_COLOR = "\033[0m";
