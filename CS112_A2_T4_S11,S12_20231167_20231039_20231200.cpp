@@ -9,6 +9,7 @@
 #include <string>
 #include <limits>
 #include <bitset>
+#include <unordered_set>
 #include <algorithm>
 #include <sstream>
 #include <iomanip>
@@ -23,6 +24,20 @@ string WHITE = "\033[1;37m";
 string GREEN = "\033[1;32m";
 string CYAN = "\033[1;36m";
 string PURPLE = "\033[1;35m";
+
+string removeMultipleChars(const string& str) {
+    unordered_set<char> seenChars;
+    string result;
+
+    for (char ch : str) {
+        if (seenChars.find(ch) == seenChars.end()) {
+            result += ch;
+            seenChars.insert(ch);
+        }
+    }
+
+    return result;
+}
 
 void route_cipher(){
     cout << SYSTEM_COLOR <<"Welcome to my cipher (Route cipher)" << RESET_COLOR << endl;
@@ -442,6 +457,18 @@ string remove_spaces_chars(string input)
     for (char c : input)
     {
         if (isalpha(c))
+        {
+            result += c;
+        }
+    }
+    return result;
+}
+string remove_chars(string input)
+{
+    string result;
+    for (char c : input)
+    {
+        if (isalpha(c) || isspace(c))
         {
             result += c;
         }
@@ -971,11 +998,13 @@ void Baconian() {
         if (choice == 1) {
             // Get message from user and encrypt it
             message = get_string("enter the message:");
+            message = remove_chars(message);
             output_message = Encrypt_Baconian(message);
             cout << SYSTEM_COLOR << "The encrypted message :" << output_message << "\n" << RESET_COLOR;
         } else if (choice == 2) {
             // Get message from user and decrypt it
             message = get_string("enter the message:");
+            message = remove_chars(message);
             output_message = Decrypt_Baconian(message);
             cout << SYSTEM_COLOR << "The decrypted message :" << output_message << "\n" << RESET_COLOR;
         } else if (choice == 3) {
@@ -1091,6 +1120,7 @@ void Simple_Substitution() {
             for (char &c : key) {
                 c = tolower(c);
             }
+            key = removeMultipleChars(key);
             // Encrypt the message and display the result
             output_message = Encrypt_Simple_Substitution(message, key, alphabets);
             cout << "The encrypted message :" << output_message << "\n";
@@ -1104,6 +1134,8 @@ void Simple_Substitution() {
             for (char &c : key) {
                 c = tolower(c);
             }
+            key = removeMultipleChars(key);
+
             // Decrypt the message and display the result
             output_message = Decrypt_Simple_Substitution(message, key, alphabets);
             cout << "The decrypted message :" << output_message << "\n";
