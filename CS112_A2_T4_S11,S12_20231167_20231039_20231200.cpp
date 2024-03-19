@@ -304,7 +304,7 @@ int Morse_Code()
     while (true)
     {
         // Take from the user the operation that s/he wants.
-        cout << SYSTEM_COLOR << "Which operation do you want to do : \na) Encrypt \nb) Decrypt\n"
+        cout << SYSTEM_COLOR << "Which operation do you want to do : \na) Encrypt \nb) Decrypt\nC) Exit\n"
              << RESET_COLOR;
         getline(cin, choice);
         if (choice == "a" || choice == "A")
@@ -315,6 +315,8 @@ int Morse_Code()
         else if (choice == "b" || choice == "B")
         {
             decode();
+            break;
+        }else if (choice == "c" or choice == "C"){
             break;
         }
         else
@@ -1158,7 +1160,7 @@ int Polybius_Square (){
         } else if (choice == "b" or choice == "B") {
             decode_6();
         }else if (choice == "c" or choice == "C"){
-            exit(0);
+            break;
         }
         else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."  << RESET_COLOR;}
     }
@@ -1287,7 +1289,7 @@ int XOR(){
         } else if (choice == "b" or choice == "B") {
             decode_9();
         }else if (choice == "c" or choice == "C"){
-            exit(0);
+            break;
         }
         else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."<< RESET_COLOR; }
     }
