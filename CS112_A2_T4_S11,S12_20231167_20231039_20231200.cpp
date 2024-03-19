@@ -1,7 +1,7 @@
 // File: CS112_A2_T4_S11,S12_20231167_20231039_20231200.cpp
 // Purpose: a program that have a variety of encryption and decryption ways to be more secured when talking to someone.
 // Author: Mostafa Ehab Mostafa Akl (20231167) (mostafaehabakl@gmail.com) , Section 12 , Did 6)Polybius Square Cipher , 7)Morse Code Cipher, 8)XOR Cipher.
-//         Gamal Megahed Sayed Mohamed (20231039) (eng.gamalmegahed@gmail.com), Section 12 , Did 3)Vignere Cipher , 4)Baconian Cipher ,5)Simple Substitution Cipher , 9)Rail Fence Code.
+//         Gamal Megahed Sayed Mohamed (20231039) (eng.gamalmegahed@gmail.com), Section 12 , Did 3)Vignere Cipher , 4)Baconian Cipher ,5)Simple Substitution Cipher , 9)Rail Fence Cipher.
 //         Walid Adel Mordy Rohyem (20231200) (khattabadel112005@gmail.com), Section 11 , Did 0) Affine cipher , 1)Route Cipher , 2)Atbash Cipher.
 
 #include <iostream>
@@ -1337,6 +1337,8 @@ int encode_9 (){
     getline(cin, (encrypt_mes));
     cout <<SYSTEM_COLOR<< "Please, enter the key of the encryption:"<< RESET_COLOR;
     cin >> key;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     // XOR operation on every bit in every character in the message.
     for (char letter : encrypt_mes){
         encrypted_mes += letter ^ key;
@@ -1373,6 +1375,8 @@ int decode_9(){
     }
     cout <<SYSTEM_COLOR<< "Please, enter the key of the encryption:"<< RESET_COLOR;
     cin >> key;
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     // XOR operation on every bit in every character in the message.
     for (char letter : decrypt_mes){
         decrypted_mes += letter ^ key;
