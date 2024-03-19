@@ -1,6 +1,9 @@
-//
-// Created by Gamal on 3/17/2024.
-//
+// File: CS112_A2_T4_S11,S12_20231167_20231039_20231200.cpp
+// Purpose: a program that have a variety of encryption and decryption ways to be more secured when talking to someone.
+// Author: Mostafa Ehab Mostafa Akl (20231167) (mostafaehabakl@gmail.com) , Section 12 , Did Morse Code Translator.
+//         Gamal Megahed Sayed Mohamed (20231039) (eng.gamalmegahed@gmail.com), Section 12 , Did Rail Fence Code.
+//         Walid Adel Mordy Rohyem (20231200) (khattabadel112005@gmail.com), Section 11 , Did Program Affine cipher.
+
 #include <iostream>
 #include <map>
 #include <string>
@@ -9,23 +12,34 @@
 #include <algorithm>
 
 using namespace std;
+string SYSTEM_COLOR;
+string RESET_COLOR = "\033[0m";
+string BOLD = "\033[1;37m";
+string RED = "\033[1;31m";
+string BLUE = "\033[1;34m";
+string YELLOW = "\033[1;33m";
+string WHITE = "\033[1;37m";
+string GREEN = "\033[1;32m";
+string CYAN = "\033[1;36m";
+string PURPLE = "\033[1;35m";
+
 void route_cipher(){
-    cout<<"Welcome to my cipher (Route cipher)"<<endl;
+    cout << SYSTEM_COLOR <<"Welcome to my cipher (Route cipher)" << RESET_COLOR << endl;
     while(true){
         // Input the message
 
         int chose;
-        cout<<"1) Encrypt the message.\n2) Decrypt the message.\n3) Exit: ";
+        cout << SYSTEM_COLOR << "1) Encrypt the message.\n2) Decrypt the message.\n3) Exit: "<< RESET_COLOR;
         cin>>chose;
         while (cin.fail() || (chose != 1 && chose != 2 && chose != 3)){
-            cout<<"Invalid input! PLease, Follow the instructions."<<endl;
+            cout << SYSTEM_COLOR <<"Invalid input! PLease, Follow the instructions."<< RESET_COLOR <<endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout<<"1) Encrypt the message.\n2) Decrypt the message.\n3) Exit: ";
+            cout<< SYSTEM_COLOR <<"1) Encrypt the message.\n2) Decrypt the message.\n3) Exit: ""<< RESET_COLOR;
             cin>>chose;
         }
         if(chose==1){
-            cout << "Please, Enter your message: ";
+            cout << SYSTEM_COLOR<< "Please, Enter your message: ""<< RESET_COLOR;
             cin.ignore();
             string orgi_message;
             getline(cin, orgi_message);
@@ -36,15 +50,15 @@ void route_cipher(){
                 }
             }
             // Handle the errors
-            cout << "Enter your key number (The number has to be greater than zero): ";
+            cout << SYSTEM_COLOR<< "Enter your key number (The number has to be greater than zero): ""<< RESET_COLOR;
             // Input the key
             int key;
             cin >> key;
             while(cin.fail() || key <= 0){
-                cout<<"Invalid input! Please, Follow the instructions."<<endl;
+                cout<< SYSTEM_COLOR<<"Invalid input! Please, Follow the instructions.""<< RESET_COLOR<<endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                cout << "Enter your key number again (The number has to be greater than zero): ";
+                cout << SYSTEM_COLOR<< "Enter your key number again (The number has to be greater than zero): "<< RESET_COLOR;
                 cin>>key;
             }
             int rrows;
@@ -91,12 +105,12 @@ void route_cipher(){
                 }
                 left+=1;
             }
-            cout<<result<<endl;
+            cout<< SYSTEM_COLOR<<result<< RESET_COLOR<<endl;
             cin.ignore();
         }
             // decrypt the message
         else if(chose==2){
-            cout << "Please, Enter your message: ";
+            cout << SYSTEM_COLOR<< "Please, Enter your message: "<< RESET_COLOR;
             cin.ignore();
             string orgi_message;
             getline(cin, orgi_message);
@@ -107,15 +121,15 @@ void route_cipher(){
                 }
             }
             // Handle the errors
-            cout << "Enter your key number (The number has to be greater than zero): ";
+            cout << SYSTEM_COLOR<< "Enter your key number (The number has to be greater than zero): "<< RESET_COLOR;
             // Input the key
             int key;
             cin >> key;
             while(cin.fail() || key <= 0){
-                cout<<"Invalid input! Please, Follow the instructions."<<endl;
+                cout<< SYSTEM_COLOR<<"Invalid input! Please, Follow the instructions."<< RESET_COLOR<<endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
-                cout << "Enter your key number again (The number has to be greater than zero): ";
+                cout << SYSTEM_COLOR<< "Enter your key number again (The number has to be greater than zero): "<< RESET_COLOR;
                 cin>>key;
             }
             int rrows;
@@ -172,7 +186,7 @@ void route_cipher(){
                         result2+=board[i][ii];
                 }
             }
-            cout<<result2<<endl;
+            cout<< SYSTEM_COLOR<<result2<< RESET_COLOR<<endl;
             cin.ignore();
         }
         else break;
@@ -184,21 +198,21 @@ void atbash_cipher(){
     while (true){
 // encryption or decryption
         int chose;
-        cout<<"1) Encrypt your message.\n2) Decrypt your message.\n3) Exit: ";
+        cout<< SYSTEM_COLOR<<"1) Encrypt your message.\n2) Decrypt your message.\n3) Exit: "<< RESET_COLOR;
         cin>>chose;
 // handling the errors
         while (cin.fail() || (chose !=1 && chose !=2 && chose != 3)){
-            cout<<"Invalid input! Please, Follow the instructions."<<endl;
+            cout<< SYSTEM_COLOR<<"Invalid input! Please, Follow the instructions.<< RESET_COLOR"<<endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout<<"1) Encrypt your message.\n2) Decrypt your message.\n3) Exit: ";
+            cout<< SYSTEM_COLOR<<"1) Encrypt your message.\n2) Decrypt your message.\n3) Exit: "<< RESET_COLOR;
             cin>>chose;
         }
         if ( chose == 1 || chose == 2){
 // use the postion of the alhabet to spicify the index.
             string upp_alpha="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 //Enter the message.
-            cout<<"Enter your message: ";
+            cout<< SYSTEM_COLOR<<"Enter your message: "<< RESET_COLOR;
             string orgi_message;
             cin.ignore();
             getline(cin,orgi_message);
@@ -217,22 +231,13 @@ void atbash_cipher(){
                     }
                 }
             }
-            cout<<encrypt_result<<endl;}
+            cout<< SYSTEM_COLOR<<encrypt_result<< RESET_COLOR<<endl;}
         else break;}
 }
 
 
 //==============================
-string SYSTEM_COLOR;
-string RESET_COLOR = "\033[0m";
-string BOLD = "\033[1;37m";
-string RED = "\033[1;31m";
-string BLUE = "\033[1;34m";
-string YELLOW = "\033[1;33m";
-string WHITE = "\033[1;37m";
-string GREEN = "\033[1;32m";
-string CYAN = "\033[1;36m";
-string PURPLE = "\033[1;35m";
+
 
 // A map to help convert text to morse code.
 map<char, string> Dic = {
