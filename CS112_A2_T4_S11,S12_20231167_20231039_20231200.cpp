@@ -1163,7 +1163,7 @@ int Polybius_Square (){
         }else if (choice == "c" or choice == "C"){
             break;
         }
-        else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."  << RESET_COLOR;}
+        else { cout << RED << "Please, enter a valid input."  << RESET_COLOR;}
     }
     return 0;        
 }
@@ -1176,7 +1176,7 @@ int encode_6(){
 
     // asks the user again if s/he entered an invalid input.
     while (!alpha_checker(encrypt_mes)) {
-        cout  <<SYSTEM_COLOR<< "invalid input the message should contain alphabetic characters only.\n"<< RESET_COLOR;
+        cout  << RED << "invalid input the message should contain alphabetic characters only.\n"<< RESET_COLOR;
         cout  <<SYSTEM_COLOR<< "Please enter the message you want to encrypt:"<< RESET_COLOR;
         getline(cin, encrypt_mes);
     }
@@ -1186,7 +1186,7 @@ int encode_6(){
 
     // asks the user again if s/he entered an invalid input.
     while (!checker_num(key,5)) {
-        cout  <<SYSTEM_COLOR<<"Please, enter a valid input,\nthe key should contain integers only with range of 5:"<< RESET_COLOR;
+        cout  << RED <<"Please, enter a valid input,\nthe key should contain integers only with range of 5:"<< RESET_COLOR;
         getline(cin, key);
     }
     // compare the letters in the message with the key.
@@ -1222,7 +1222,7 @@ int decode_6(){
 
     // asks the user again if s/he entered an invalid input.
     while (!checker_num(decrypt_mes,decrypt_mes.size())) {
-        cout <<SYSTEM_COLOR<< "Please, enter a valid input,\nthe encrypted message should contain integers only:"<< RESET_COLOR;
+        cout << RED << "Please, enter a valid input,\nthe encrypted message should contain integers only:"<< RESET_COLOR;
         getline(cin, decrypt_mes);
     }
 
@@ -1231,7 +1231,7 @@ int decode_6(){
 
     // asks the user again if s/he entered an invalid input.
     while (!checker_num(key,5)) {
-        cout<<SYSTEM_COLOR << "Please, enter a valid input,\nthe key should contain integers only with range of 5:"<< RESET_COLOR;
+        cout<< RED << "Please, enter a valid input,\nthe key should contain integers only with range of 5:"<< RESET_COLOR;
         getline(cin, key);
     }
     // using the numbers of the key to know the index to use after equaling with the encrypted message.
@@ -1293,7 +1293,7 @@ int XOR(){
         }else if (choice == "c" or choice == "C"){
             break;
         }
-        else { cout <<SYSTEM_COLOR<< "Please, enter a valid input."<< RESET_COLOR; }
+        else { cout << RED << "Please, enter a valid input."<< RESET_COLOR; }
     }
     return 0; 
 }
