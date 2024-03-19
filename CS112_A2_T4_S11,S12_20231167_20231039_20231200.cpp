@@ -35,11 +35,11 @@ void route_cipher(){
             cout << SYSTEM_COLOR <<"Invalid input! PLease, Follow the instructions."<< RESET_COLOR <<endl;
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(),'\n');
-            cout<< SYSTEM_COLOR <<"1) Encrypt the message.\n2) Decrypt the message.\n3) Exit: ""<< RESET_COLOR;
+            cout<< SYSTEM_COLOR <<"1) Encrypt the message.\n2) Decrypt the message.\n3) Exit: "<< RESET_COLOR;
             cin>>chose;
         }
         if(chose==1){
-            cout << SYSTEM_COLOR<< "Please, Enter your message: ""<< RESET_COLOR;
+            cout << SYSTEM_COLOR<< "Please, Enter your message: "<< RESET_COLOR;
             cin.ignore();
             string orgi_message;
             getline(cin, orgi_message);
@@ -50,12 +50,12 @@ void route_cipher(){
                 }
             }
             // Handle the errors
-            cout << SYSTEM_COLOR<< "Enter your key number (The number has to be greater than zero): ""<< RESET_COLOR;
+            cout << SYSTEM_COLOR<< "Enter your key number (The number has to be greater than zero): "<< RESET_COLOR;
             // Input the key
             int key;
             cin >> key;
             while(cin.fail() || key <= 0){
-                cout<< SYSTEM_COLOR<<"Invalid input! Please, Follow the instructions.""<< RESET_COLOR<<endl;
+                cout<< SYSTEM_COLOR<<"Invalid input! Please, Follow the instructions."<< RESET_COLOR<<endl;
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(),'\n');
                 cout << SYSTEM_COLOR<< "Enter your key number again (The number has to be greater than zero): "<< RESET_COLOR;
